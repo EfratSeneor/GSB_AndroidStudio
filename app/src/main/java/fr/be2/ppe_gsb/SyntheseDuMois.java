@@ -34,10 +34,14 @@ public class SyntheseDuMois extends AppCompatActivity {
         //Générer le ListView a partir de SQLite Database
         displayListView();
     }
+
+    /**
+     * Génère le ListView a partir de SQLite Database
+     *
+     * @return null
+     */
     private void displayListView() {
-
-        Cursor cursor = dbHelper.fetchAllCountries();
-
+        Cursor cursor = dbHelper.fetchAllFrais();
         // Les colonnes que l’on veut lier
         String[] columns = new String[] {
                 SQLHelper.KEY_ID,
@@ -89,10 +93,25 @@ public class SyntheseDuMois extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     *  Affiche un message après la suppression d'un frais
+     *
+     * @param v
+     *
+     * @return null
+     */
     public void doDeleteOnClick(View v) {
         Toast.makeText(v.getContext(),"You clicked the DELETE button for id " + ((String) v.getTag()), Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Effectue un retour en arrière soit arrête l'activité en cours
+     *
+     * @param view
+     *
+     * @return null
+     */
     public void clique_btn6 (View view){
         finish();
     }

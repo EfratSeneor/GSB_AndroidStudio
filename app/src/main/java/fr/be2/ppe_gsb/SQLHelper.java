@@ -51,6 +51,17 @@ public class SQLHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
+    /**
+     * Ajoute de données passées en paramètres à la base de données
+     *
+     * @param typefrais
+     * @param libelle
+     * @param quantite
+     * @param montant
+     * @param date
+     *
+     * @return
+     */
     public boolean insertData(String typefrais, String libelle, Integer quantite, Double montant, String date){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -64,7 +75,12 @@ public class SQLHelper extends SQLiteOpenHelper {
 
     }
 
-    public Cursor fetchAllCountries() {
+    /**
+     * Renvoie tous les frais
+     *
+     * @return mCursor
+     */
+    public Cursor fetchAllFrais() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor mCursor = db.query(DB_TABLE, new String[] {"rowid _id",KEY_ID,
                         KEY_LIBELLE, KEY_MONTANT, KEY_DATEDESAISIT, KEY_DATEDEFRAIS, KEY_QUANTITE,KEY_TYPEDEFRAIS},
@@ -76,14 +92,13 @@ public class SQLHelper extends SQLiteOpenHelper {
         return mCursor;
     }
 
-    public Cursor viewData() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String query = "select * from " + DB_TABLE;
-        Cursor pointeur = db.rawQuery(query, null);
-        return pointeur;
-
-    }
-
+    /**
+     * Supprime des informations en fonction d'un id donne
+     *
+     * @param ID
+     *
+     * @return
+     */
     public boolean  deleteData(Integer ID){
         SQLiteDatabase db = this.getWritableDatabase();
 

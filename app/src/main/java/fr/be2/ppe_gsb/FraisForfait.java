@@ -27,8 +27,7 @@ public class FraisForfait extends MainActivity {
     SQLHelper bdd;
     Spinner typefrais;
     EditText quantite;
-    Button btnAjouter  ;
-    EditText MaDate;
+    Button btnAjouter;
     DatePickerDialog picker;
     Calendar calendrier = Calendar.getInstance();
     int aaaa = calendrier.get(Calendar.YEAR);
@@ -36,8 +35,6 @@ public class FraisForfait extends MainActivity {
     int jj = calendrier.get(Calendar.DAY_OF_MONTH);
     //tableaux des montants frais au forfait
     Double montantfrais[]=new Double[]{0.62,110.00,80.00,25.00};
-    String Typefrais[]=new String []{"","Forfait Km","Forfait étape","Forfait hotel","Repas Restaurant"};
-    private Object fraisauforfait;
 
 
     //constructeur
@@ -54,27 +51,16 @@ public class FraisForfait extends MainActivity {
         typefrais= findViewById(R.id.typefrais);
         quantite= findViewById(R.id.quantite);
         btnAjouter= findViewById(R.id.btnAjouter);
-        MaDate= findViewById(R.id.Date);
     }
 
-    public void ShowCal(View v)
-    {
-        picker = new DatePickerDialog (FraisForfait.this ,
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        MaDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-                    }
-                },aaaa, mm, jj );
-        picker.show(); }
-
-
-    public void clique_btn6 (View view){
-        finish();
-
-    }
-
-
+    /**
+     * affiche un message contenant un titre et un contenu passés en paramètres (boite de dialogue)
+     *
+     * @param titre
+     * @param message
+     *
+     * @return null
+     */
     public void afficherMessage(String titre,String message){
         AlertDialog.Builder Builder=new AlertDialog.Builder(this ) ;
         Builder.setCancelable(true);
@@ -84,7 +70,16 @@ public class FraisForfait extends MainActivity {
 
     }
 
-
+    /**
+     * Ajoute les valeurs saisies à la base de donnée;
+     * La fonction verifie dans un premier temps si le visiteur a bien rempli le champ quantité
+     * Elle calcule le montant du frais (produit de la quantité par le montant fixé)
+     * Si la fonction a bien enregistré les frais dans la base de donées, elle affiche un message de succés
+     *
+     * @param v
+     *
+     * @return null
+     */
     public void MonClick(View v ) {
         switch (v.getId()) {
             case R.id.btnAjouter:
@@ -96,34 +91,28 @@ public class FraisForfait extends MainActivity {
                 } else {
                     Integer quantite1 = Integer.parseInt(quantite.getText().toString()); //cette ligne a un pb. Il narrive pas à inserer les donnees
                     String forfait1 = typefrais.getSelectedItem().toString();
-                    String Date1= MaDate.getText().toString();
                     int posForfait = typefrais.getSelectedItemPosition();
-                    /* for (int i=0; i<= 4; i++){
-                    for (int k=0; k<= 4; k++){
-                    if (TypeFraisForfait[i] == elementSelectionne){
-                    montantCalcule=(FraisAuForfait[k]*quantite);
-                    }
-                    }*/
-                    Double montantCalcule = quantite1 * montantfrais[posForfait];
-                    if (bdd.insertData(forfait1, forfait1, quantite1, montantCalcule, Date1)) {
+                    Double montantCalcule = quantite1 * montantfrais[posForfait-1];
+
+                    if (bdd.insertData(forfait1, forfait1, quantite1, montantCalcule, null)) {
                         afficherMessage("Succès", "Valeur ajoutée. " + "Montant= " + montantCalcule);
                     }
                 }
         }
     }
 
+    /**
+     * Effectue un retour en arrière soit arrête l'activité en cours
+     *
+     * @param view
+     *
+     * @return null
+     */
     public void clique_retour(View view) {
         finish();
     }
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
-
-    }
-
-
-
-
-    private void afficherMessage() {
     }
 }

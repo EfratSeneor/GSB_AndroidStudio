@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Libellé"
+            android:hint="Libellé"
             android:textSize="24sp" />
 
         <LinearLayout
@@ -53,8 +53,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Montant:" />
+            android:inputType="numberDecimal"
+            android:hint="Montant:" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -67,8 +67,16 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Date:" />
+                android:hint="Date:"
+                android:inputType="date" />
+
+            <ImageButton
+                android:id="@+id/imageButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="ShowCal"
+                app:srcCompat="@drawable/calendrier" />
 
         </LinearLayout>
     </LinearLayout>
